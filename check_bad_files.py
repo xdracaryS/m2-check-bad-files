@@ -29,8 +29,8 @@ for fileName in glob.glob('*.py'):
 	fileName = fileName[:-3].lower()
 	for fileNameNext in glob.glob('*.py'):
 		lines = open(fileNameNext).readlines()
-		for j in xrange(len(lines)):
-			if lines[j].lower().find("import "+fileName+"\n") != -1:
+		for line in lines:
+			if line.lower().find("import "+fileName+"\n") != -1:
 				status = False
 				break
 		if not status:
@@ -55,17 +55,17 @@ for fileName in glob.glob('uiscript/*.py'):
 	status = True
 	for fileNameNext in glob.glob('*.py'):
 		lines = open(fileNameNext).readlines()
-		for j in xrange(len(lines)):
-			if lines[j].lower().find('"'+fileName+'"') != -1:
+		for line in lines:
+			if line.lower().find(fileName+'"') != -1:
 				status = False
 				break
 		if not status:
 			break
 	if status:
-		out.write(fileName+"\n")
+		out.write("uiscript/"+fileName+"\n")
 	readCount+=1
 	print "Script Files Check is status %d\n"% (readCount*float(float(100)/float(fileCount)))
-
+out.close()
 print "by dracaryS <dracarys.work>"
 print "Working done... Check the check_bad_files_output.txt file..."
 os.system("PAUSE")
